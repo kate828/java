@@ -11,7 +11,6 @@ public class Main {
         Reader reader = Reader.createReader("alice", "smith", "R1001");
         System.out.println("Reader: " + reader);
 
-        // демонструємо доступ до protected поля firstName через getFullName (спадкування)
         reader.setFavoriteAuthor(author);
         System.out.println("Reader's favorite author: " + reader.getFavoriteAuthor());
 
@@ -21,7 +20,6 @@ public class Main {
         LibraryAccess access = LibraryAccess.createLibraryAccess(reader, "1984", new Date(), new Date(System.currentTimeMillis() + 14L*24*3600*1000));
         System.out.println("Access: " + access);
 
-        // приклади невдалих створень:
         Author badAuthor = Author.createAuthor("x", "y", 999); // invalid
         System.out.println("Bad author created? " + (badAuthor != null));
     }
