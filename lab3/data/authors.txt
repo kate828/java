@@ -1,3 +1,0 @@
-George,Orwell,1903
-Aldous,Huxley,1894
-Invalid,Data
