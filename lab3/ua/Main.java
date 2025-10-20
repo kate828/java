@@ -2,34 +2,44 @@ package ua;
 
 import ua.exception.InvalidDataException;
 import ua.model.*;
-import ua.util.*;
+import ua.util.FileUtils;
+import ua.util.LibraryUtils;
+import ua.util.LogHelper;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger logger = LogHelper.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
-        LoggerUtil.info("=== Старт програми Library 2 (Digital) ===");
+        logger.info("=== Початок виконання програми Library 2 (Digital) ===");
 
         try {
-            List<Author> authors = FileLoader.loadAuthors("data/authors.txt");
-            List<Reader> readers = FileLoader.loadReaders("data/readers.txt");
+            List<Author> authors = FileUtils.readAuthors("data/authors.csv");
+            List<EBook> ebooks = FileUtils.readEBooks("data/ebooks.csv");
+            List<Reader> readers = FileUtils.readReaders("data/readers.csv");
 
-            System.out.println("Автори:");
-            authors.forEach(System.out::println);
+            logger.info("Дані успішно зчитано.");
 
-            System.out.println("\nЧитачі:");
-            readers.forEach(System.out::println);
+            LibraryAccess access = LibraryUtils.createAccess(readers.get(0), ebooks.get(0));
+            logger.info("Створено доступ: " + access);
 
-            EBook ebook = new EBook("1984", authors, "9780451524935", List.of(
-                    new FileResource("https://ebooks.com/1984.pdf", "PDF", 2.5, "Document")
-            ));
-            System.out.println("\nEBook створено: " + ebook);
+            try {
+                LibraryUtils.validateEBook(new EBook("", "", "1234", null));
+            } catch (InvalidDataException e) {
+                logger.warning("Виняток при перевірці: " + e.getMessage());
+            }
 
-        } catch (InvalidDataException e) {
-            System.err.println("Помилка даних: " + e.getMessage());
-            LoggerUtil.error("Виникла помилка даних", e);
+            logger.info("Програма виконана успішно.");
+
+        } catch (IOException e) {
+            logger.severe("Помилка роботи з файлом: " + e.getMessage());
+        } catch (Exception e) {
+            logger.severe("Невідома помилка: " + e.getMessage());
         } finally {
-            LoggerUtil.info("=== Завершення програми ===");
+            logger.info("=== Завершення програми ===");
         }
     }
 }
