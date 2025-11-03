@@ -1,22 +1,27 @@
 package ua.model;
 
-public class Author {
-    private String firstName;
-    private String lastName;
-    private int birthYear;
+import java.util.List;
 
-    public Author(String firstName, String lastName, int birthYear) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthYear = birthYear;
+public class EBook {
+    private String title;
+    private List<Author> authors;
+    private String isbn;
+    private List<FileData> files;
+
+    public EBook(String title, List<Author> authors, String isbn, List<FileData> files) {
+        this.title = title;
+        this.authors = authors;
+        this.isbn = isbn;
+        this.files = files;
     }
 
-    public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
-    public int getBirthYear() { return birthYear; }
+    public String getTitle() { return title; }
+    public String getIsbn() { return isbn; }
+    public List<Author> getAuthors() { return authors; }
+    public List<FileData> getFiles() { return files; }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + " (" + birthYear + ")";
+        return "EBook{" + title + ", ISBN=" + isbn + ", authors=" + authors + "}";
     }
 }
