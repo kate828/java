@@ -1,0 +1,32 @@
+package model;
+
+
+public class Book implements Comparable<Book> {
+private int id;
+private String title;
+private int authorId;
+
+
+public Book(int id, String title, int authorId) {
+this.id = id;
+this.title = title;
+this.authorId = authorId;
+}
+
+
+public int getId() { return id; }
+public String getTitle() { return title; }
+public int getAuthorId() { return authorId; }
+
+
+@Override
+public int compareTo(Book o) {
+return this.title.compareTo(o.title);
+}
+
+
+@Override
+public String toString() {
+return id + " " + title + " (author=" + authorId + ")";
+}
+}
