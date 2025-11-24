@@ -1,0 +1,4 @@
+G1,Java Beginners,5
+G2,Java Pro,4
+G3,Python Basic,6
+G4,Frontend 101,3
